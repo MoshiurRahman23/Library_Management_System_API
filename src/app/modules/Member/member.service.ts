@@ -1,13 +1,14 @@
 import { Member, PrismaClient } from "@prisma/client"
+import { IMember } from "./member.interface";
 
 const prisma = new PrismaClient();
 
-const createMember = async (data: any) => {
+const createMember = async (params: IMember) => {
     const memberData = {
-        name: data.name,
-        email: data.email,
-        phone: data.phone,
-        membershipDate: data.membershipDate
+        name: params.name,
+        email: params.email,
+        phone: params.phone,
+        membershipDate: params.membershipDate
     }
 
     const member = await prisma.member.create({
@@ -23,6 +24,11 @@ const getAllMemberFromBD = async () => {
 };
 
 const getMemberByIdFromBD = async (id: any) => {
+    await prisma.member.findFirstOrThrow({
+        where: {
+            memberId: id
+        }
+    })
     const result = await prisma.member.findUnique({
         where: {
             memberId: id
@@ -47,6 +53,12 @@ const updateIntoDB = async (id: string, data: Partial<Member>) => {
 };
 
 const deletedFromDB = async (id: string, data: Partial<Member>) => {
+
+    await prisma.member.findFirstOrThrow({
+        where: {
+            memberId: id
+        }
+    })
     const singleDelete = await prisma.member.delete({
         where: {
             memberId: id

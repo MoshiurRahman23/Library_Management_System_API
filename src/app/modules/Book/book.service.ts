@@ -47,6 +47,11 @@ const updateIntoDB = async (id: string, data: Partial<Book>) => {
 };
 
 const deletedFromDB = async (id: string) => {
+    await prisma.book.findFirstOrThrow({
+        where: {
+            bookId: id
+        }
+    })
     const singleDelete = await prisma.book.delete({
         where: {
             bookId: id

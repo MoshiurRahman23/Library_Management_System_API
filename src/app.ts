@@ -1,7 +1,9 @@
-import express, { Application, Request, Response } from 'express';
+import express, { Application, NextFunction, Request } from 'express';
 import cors from 'cors';
-import { bookRoutes } from './app/modules/Book/book.route';
-import { MemberRoutes } from './app/modules/Member/member.route';
+import router from './app/routes';
+import globalErrorHandler from './app/middleware/GlobalErrorHandler';
+import httpStatus from 'http-status';
+import errorHandler from './app/middleware/ErrorHandler';
 
 const app: Application = express();
 app.use(cors());
@@ -10,14 +12,10 @@ app.use(cors());
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
+app.use('/api/v1/', router)
 
-// app.get('/', (req: Request, res: Response) => {
-//     res.send({
-//         Message: "Library Management System API...."
-//     })
-// });
+app.use(globalErrorHandler)
 
-app.use('/api/v1/books', bookRoutes)
-app.use('/api/v1/members', MemberRoutes)
+app.use(errorHandler)
 
 export default app;
