@@ -1,10 +1,10 @@
 import express from 'express';
-import { BorrowBookController } from './borrowBook.controller';
+import { BorrowAndReturnBookController } from './borrowBook.controller';
 
 
 const router = express.Router();
 
-const router.post('/', BorrowBookController.borrowABook)
+router.post('/', BorrowAndReturnBookController.getBorrowBookIntoDB)
 
 
-export const BorrowBookRoutes = router;
+export const BorrowAndReturnBookRoutes = router;

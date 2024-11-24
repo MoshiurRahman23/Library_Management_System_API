@@ -1,23 +1,18 @@
-import { Request } from "express";
-import { BorrowBookService } from "./borrowBook.service";
+import httpStatus from "http-status";
+import catchAsync from "../../../shared/catchAsync";
+import sendResponse from "../../../shared/sendResponse";
+import { BorrowAndReturnBookServices } from "./borrowBook.service";
 
-const borrowABook = async (req: Request, res: Response) => {
-    try {
-        const result = await BorrowBookService.borrowABookFromDB();
-        res.status(200).json({
-            success: true,
-            message: "Borrow Book successful",
-            data: result
-        })
+const getBorrowBookIntoDB = catchAsync(async (req, res) => {
+    const result = await BorrowAndReturnBookServices.borrowBookFromDB()
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        message: "Book borrowed successfully",
+        data: result
+    })
+});
 
-    } catch (error: any) {
-        res.status(500).json({
-            success: false,
-            message: error.name || "Something went wrong !!",
-            error: error
-        })
-    }
-};
-export const BorrowBookController = {
-    borrowABook
+export const BorrowAndReturnBookController = {
+    getBorrowBookIntoDB
 }

@@ -1,7 +1,7 @@
-const borrowABookFromDB = async () => {
-    console.log("Borrow Book");
-}
+const borrowBookFromDB = async () => {
+    console.log("object");
+};
 
-export const BorrowBookService = {
-    borrowABookFromDB
+export const BorrowAndReturnBookServices = {
+    borrowBookFromDB
 }

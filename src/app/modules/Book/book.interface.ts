@@ -1,4 +1,6 @@
 export type IBook = {
+    memberId: any
+    borrowId: any
     bookId: string,
     title: string,
     genre: string,

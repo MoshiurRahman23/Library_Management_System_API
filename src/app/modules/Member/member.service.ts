@@ -4,6 +4,7 @@ import { IMember } from "./member.interface";
 const prisma = new PrismaClient();
 
 const createMember = async (params: IMember) => {
+    // console.log(params);
     const memberData = {
         name: params.name,
         email: params.email,
@@ -18,12 +19,12 @@ const createMember = async (params: IMember) => {
     return member;
 }
 
-const getAllMemberFromBD = async () => {
+const getAllMemberFromBD = async (body: any) => {
     const result = await prisma.member.findMany();
     return result;
 };
 
-const getMemberByIdFromBD = async (id: any) => {
+const getMemberByIdFromBD = async (id: string) => {
     await prisma.member.findFirstOrThrow({
         where: {
             memberId: id

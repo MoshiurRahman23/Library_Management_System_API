@@ -21,7 +21,7 @@ const createMember: RequestHandler = catchAsync(async (req, res) => {
 
 const getAllMemberFromBD = catchAsync(async (req: Request, res: Response) => {
 
-    const result = await MemberService.getAllMemberFromBD();
+    const result = await MemberService.getAllMemberFromBD(req.body);
     sendResponse(res, {
         statusCode: httpStatus.OK,
         success: true,
